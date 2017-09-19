@@ -6,6 +6,7 @@ import java.awt.event.*;
 
 public class CalcGUI extends Frame {
     private Button[] btnNumbers;
+    //TODO: make buttons below into array maybe
     private Button btnEq, btnAdd, btnSub, btnMult, btnDiv, btnClear;
     private TextField textDisp;
     float tempA = 0;
@@ -22,18 +23,20 @@ public class CalcGUI extends Frame {
         Panel panelButtons = new Panel(new GridLayout(4, 3));
         btnNumbers = new Button[10];
         for (int i = 1; i <= 9; i ++) {
-
             btnNumbers[i] = new Button(String.valueOf(i));
             panelButtons.add(btnNumbers[i]);
             if (i == 3) {
                 btnAdd = new Button("+"); panelButtons.add(btnAdd);
-            } else if (i == 6) {
+            }
+            if (i == 6) {
                 btnSub = new Button("-"); panelButtons.add(btnSub);
-            } else if (i == 9) {
+            }
+            if (i == 9) {
                 btnMult = new Button("*"); panelButtons.add(btnMult);
             }
         }
 
+        //last line in ui
         btnClear = new Button("C");
         panelButtons.add(btnClear);
 
@@ -46,12 +49,12 @@ public class CalcGUI extends Frame {
         btnDiv = new Button("/");
         panelButtons.add(btnDiv);
 
-        // Allocate an instance of the "named" inner class BtnListener.
         BtnListener listener = new BtnListener();
 
         for (int i = 0; i <= 9; i++) {
             btnNumbers[i].addActionListener(listener);
         }
+
         btnDiv.addActionListener(listener); btnMult.addActionListener(listener); btnSub.addActionListener(listener);
         btnAdd.addActionListener(listener); btnClear.addActionListener(listener); btnEq.addActionListener(listener);
 
@@ -66,12 +69,10 @@ public class CalcGUI extends Frame {
         setVisible(true);
     }
 
-    //Performs appropiate action when any Button is clicked
     private class BtnListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent evt) {
             String btnLabel = evt.getActionCommand();
-            // switch used for efficiency
             switch (btnLabel) {
                 case "0":
                 case "1":
@@ -125,23 +126,20 @@ public class CalcGUI extends Frame {
         }
         return 0;
     }
+
     private float addition(float a, float b) {
-        textDisp.setText(String.valueOf(a + b));
         return a + b;
     }
 
     private float subtraction(float a, int b) {
-        textDisp.setText(String.valueOf(a - b));
         return a - b;
     }
 
     private float multiplication(float a, int b) {
-        textDisp.setText(String.valueOf(a * b));
         return a * b;
     }
 
     private float division(float a , int b) {
-        textDisp.setText(String.valueOf(a / b));
         return a / b;
     }
 
