@@ -20,43 +20,19 @@ public class CalcGUI extends Frame {
         textDisp.setEditable(false);
 
         Panel panelButtons = new Panel(new GridLayout(4, 3));
-
         btnNumbers = new Button[10];
-        btnNumbers[1] = new Button("1");
-        panelButtons.add(btnNumbers[1]);
+        for (int i = 1; i <= 9; i ++) {
 
-        btnNumbers[2] = new Button("2");
-        panelButtons.add(btnNumbers[2]);
-
-        btnNumbers[3] = new Button("3");
-        panelButtons.add(btnNumbers[3]);
-
-        btnAdd = new Button("+");
-        panelButtons.add(btnAdd);
-
-        btnNumbers[4] = new Button("4");
-        panelButtons.add(btnNumbers[4]);
-
-        btnNumbers[5] = new Button("5");
-        panelButtons.add(btnNumbers[5]);
-
-        btnNumbers[6] = new Button("6");
-        panelButtons.add(btnNumbers[6]);
-
-        btnSub = new Button("-");
-        panelButtons.add(btnSub);
-
-        btnNumbers[7] = new Button("7");
-        panelButtons.add(btnNumbers[7]);
-
-        btnNumbers[8] = new Button("8");
-        panelButtons.add(btnNumbers[8]);
-
-        btnNumbers[9] = new Button("9");
-        panelButtons.add(btnNumbers[9]);
-
-        btnMult = new Button("*");
-        panelButtons.add(btnMult);
+            btnNumbers[i] = new Button(String.valueOf(i));
+            panelButtons.add(btnNumbers[i]);
+            if (i == 3) {
+                btnAdd = new Button("+"); panelButtons.add(btnAdd);
+            } else if (i == 6) {
+                btnSub = new Button("-"); panelButtons.add(btnSub);
+            } else if (i == 9) {
+                btnMult = new Button("*"); panelButtons.add(btnMult);
+            }
+        }
 
         btnClear = new Button("C");
         panelButtons.add(btnClear);
@@ -72,11 +48,10 @@ public class CalcGUI extends Frame {
 
         // Allocate an instance of the "named" inner class BtnListener.
         BtnListener listener = new BtnListener();
-        // Use the same listener instance for all the 3 Buttons.
-        btnNumbers[0].addActionListener(listener); btnNumbers[1].addActionListener(listener); btnNumbers[2].addActionListener(listener);
-        btnNumbers[3].addActionListener(listener); btnNumbers[4].addActionListener(listener); btnNumbers[5].addActionListener(listener);
-        btnNumbers[6].addActionListener(listener); btnNumbers[7].addActionListener(listener); btnNumbers[8].addActionListener(listener);
-        btnNumbers[9].addActionListener(listener);
+
+        for (int i = 0; i <= 9; i++) {
+            btnNumbers[i].addActionListener(listener);
+        }
         btnDiv.addActionListener(listener); btnMult.addActionListener(listener); btnSub.addActionListener(listener);
         btnAdd.addActionListener(listener); btnClear.addActionListener(listener); btnEq.addActionListener(listener);
 
@@ -118,15 +93,12 @@ public class CalcGUI extends Frame {
                     //saves the first number on the screen and action to be performed
                     if(tempA == 0) {
                         tempA = Float.parseFloat(textDisp.getText());
-                        action = btnLabel;
-                        textDisp.setText("");
+                        action = btnLabel; textDisp.setText("");
                         break;
                     } else {
                         //functionality included to allow continuous calculations without having to press "="
                         float ans = getAns(tempA, Integer.parseInt(textDisp.getText()), action);
-                        tempA = ans;
-                        action = btnLabel;
-                        textDisp.setText(String.valueOf(""));
+                        tempA = ans; action = btnLabel; textDisp.setText("");
                         break;
                     }
                 case "=":
@@ -150,7 +122,7 @@ public class CalcGUI extends Frame {
                 return multiplication(a, b);
             case "/":
                 return division(a, b);
-        } //end inner switch
+        }
         return 0;
     }
     private float addition(float a, float b) {
